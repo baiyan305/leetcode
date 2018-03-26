@@ -3,9 +3,37 @@
 public class LongestPalindromicSubstring {
 
     public static void main(String[] args) {
-        System.out.println(longestPalindrome("a"));
+        System.out.println(longestPalindrome("abbaaaaba"));
     }
 
+	public static String longestPalindrome(String s) {
+		if(s == null || s.length() == 0) return s;
+
+        int len = s.length(), maxLeft = 0, maxRight = 0;
+        boolean[][] dp = new boolean[len][len];
+		
+		for(int out=0; out<len; out++) {
+			for(int in=0; in<=out; in++) {
+				dp[in][out] = s.charAt(in) == s.charAt(out) && (out-in < 3 || dp[in+1][out-1]);
+				if(dp[in][out] && out-in>maxRight-maxLeft){
+					maxLeft = in;
+					maxRight = out;
+				}
+			}
+		}
+		
+		return s.substring(maxLeft, maxRight+1);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
     public static String longestPalindrome(String s) {
         if(s == null || s.length() == 0) return s;
 
@@ -26,7 +54,7 @@ public class LongestPalindromicSubstring {
 
         return s.substring(maxLeft, maxRight);
     }
-
+	*/
     /*
     public static String longestPalindrome(String s) {
         if(s == null || s.length() == 0) return "";
