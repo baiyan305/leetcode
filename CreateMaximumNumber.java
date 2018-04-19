@@ -1,28 +1,70 @@
 // 321. Create Maximum Number
 
+import java.util.ArrayList;
+
 public class CreateMaximumNumber {
 
     public static void main(String[] args) {
-
+		//int[] nums = new int[]{3,7,9,4,8,1,4,3,6};
+		int[] nums1 = new int[]{3, 4, 6, 5};
+		int[] nums2 = new int[]{9, 1, 2, 5, 8, 3};
+		
+		maxNumber(nums1, nums2, 5);
     }
 
-    public int[] maxNumber(int[] nums1, int[] nums2, int k) {
-        int len1 = nums1.length, len2 = nums.length;    
-    
+	
+    public static void maxNumber(int[] nums1, int[] nums2, int k) {
+        int len1 = nums1.length, len2 = nums2.length;    
+		int[] max = new int[k];
+	
         for(int i=1; i<=len1 && k-i<=len2; i++) {
-                
+            int[] maxSubArray1 = getSubArray(nums1, i);
+			int[] maxSubArray2 = getSubArray(nums2, k-i);
+			int[] maxSubArray = merge(maxSubArray1, maxSubArray2);
+			
         }
     }
+	
+    private static int[] getSubArray(int[] arr, int k) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for(int i=arr.length-1; i>=0; i--) {
+			if(list.size()<k) {
+				list.add(0, arr[i]);
+			} else if(arr[i] >= list.get(0)){
+				int idxOfMin = -1, min = Integer.MAX_VALUE;
+				for(int j=0; j<list.size(); j++) {
+				    if(list.get(j) <= min) {
+						idxOfMin = j;
+						min = list.get(j);
+					}	
+				}
+				list.remove(idxOfMin);
+				list.add(0, arr[i]);
+			}
+        }
 
-    private int[] getSubArray(int[] arr, int k) {
-        int[] max = new int[k];
-        for(int i=arr.length-1; i--; i>=0) {
-            
-        }  
+		int[] ret = new int[k];
+		for(int i=0; i<k; i++) 
+			ret[i] = list.get(i);
+		
+		return ret;
     }
 
-    private int[] merge(int[] arr1, int[] arr2) {
-    
+    private static int[] merge(int[] arr1, int[] arr2) {
+		int len1 = arr1.length, len2 = arr2.length, idx1 = 0, idx2 = 0, idx3 = 0;
+		int[] ret = new int[len1 + len2];
+		while(idx1<len1 && idx2<len2) {
+			if(arr1[idx1] >= arr2[idx2]) ret[idx3++] = arr1[idx1++];
+			else ret[idx3++] = arr2[idx2++];
+		}
+		while(idx1<len1) ret[idx3++] = arr1[idx1++];
+		while(idx2<len2) ret[idx3++] = arr2[idx2++];
+		
+		return ret;
     }
+	
+	private static int[] compare(int[] arr1, int[] arr2) {
+		
+	}
 
 }
