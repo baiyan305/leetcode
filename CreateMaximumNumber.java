@@ -9,23 +9,31 @@ public class CreateMaximumNumber {
 		int[] nums1 = new int[]{3, 4, 6, 5};
 		int[] nums2 = new int[]{9, 1, 2, 5, 8, 3};
 		
-		maxNumber(nums1, nums2, 5);
+		int[] max = maxNumber(nums1, nums2, 5);
+		
+		for(int num : max)
+			System.out.print(num + " ");
     }
 
 	
-    public static void maxNumber(int[] nums1, int[] nums2, int k) {
+    public static int[] maxNumber(int[] nums1, int[] nums2, int k) {
         int len1 = nums1.length, len2 = nums2.length;    
 		int[] max = new int[k];
 	
-        for(int i=1; i<=len1 && k-i<=len2; i++) {
+        for(int i=0; i<=len1 && k-i<=len2; i++) {
             int[] maxSubArray1 = getSubArray(nums1, i);
 			int[] maxSubArray2 = getSubArray(nums2, k-i);
 			int[] maxSubArray = merge(maxSubArray1, maxSubArray2);
 			
+			if(compare(max, maxSubArray)) max = maxSubArray;
         }
+		
+		return max;
     }
 	
     private static int[] getSubArray(int[] arr, int k) {
+		if(k == 0) return new int[0];
+		
         ArrayList<Integer> list = new ArrayList<Integer>();
         for(int i=arr.length-1; i>=0; i--) {
 			if(list.size()<k) {
@@ -63,8 +71,13 @@ public class CreateMaximumNumber {
 		return ret;
     }
 	
-	private static int[] compare(int[] arr1, int[] arr2) {
+	private static boolean compare(int[] arr1, int[] arr2) {
+		for(int i=0; i<arr1.length; i++) {
+			if(arr2[i] > arr1[i]) return true;
+			else if(arr1[i] > arr2[i]) return false;
+		}
 		
+		return false;
 	}
 
 }
