@@ -30,6 +30,18 @@ public class CreateMaximumNumber {
 		return max;
     }
 	
+	private static int[] getSubArray(int[] nums, int k) {
+        int[] ret = new int[k];
+        int len = nums.length;
+
+        for(int i=0, j=0; i<len; i++) {
+            while(j>0 && nums[i]>ret[j-1] && len-i>k-j) j--;
+            if(j<k) ret[j++] = nums[i];
+        }
+
+        return ret;
+    }
+	/*
     private static int[] getSubArray(int[] arr, int k) {
 		if(k==0) return new int[0];
 
@@ -57,7 +69,7 @@ public class CreateMaximumNumber {
 		
 		return ret;
     }
-
+	*/
     private static int[] merge(int[] arr1, int[] arr2) {
 		int len1 = arr1.length, len2 = arr2.length, idx1 = 0, idx2 = 0, idx3 = 0;
 		int[] ret = new int[len1 + len2];
