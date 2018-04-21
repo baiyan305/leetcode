@@ -30,17 +30,18 @@ public class CreateMaximumNumber {
 		return max;
     }
 	
-	private static int[] getSubArray(int[] arr, int k) {
-		int[] ret = new int[k];
-		int len = arr.length;
-	
-		for(int i=0, j=-1; i<len; i++) {
-			while(j>=0 && arr[i]>ret[j] && len-i>k-j) j--;
-			if(j<k) ret[++j] = arr[i];
-		}
-		
-		return ret;
-	}
+	private static int[] getSubArray(int[] nums, int k) {
+        int[] ret = new int[k];
+        int len = nums.length;
+
+        for(int i=0, j=0; i<len; i++) {
+            while(j>0 && nums[i]>ret[j-1] && len-i>k-j) j--;
+            if(j<k) ret[j++] = nums[i];
+        }
+
+        return ret;
+    }
+
 	/*
     private static int[] getSubArray(int[] arr, int k) {
 		if(k==0) return new int[0];
