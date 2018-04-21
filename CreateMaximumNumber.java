@@ -20,7 +20,7 @@ public class CreateMaximumNumber {
         int len1 = nums1.length, len2 = nums2.length;    
 		int[] max = new int[k];
 	
-        for(int i=0; i<=len1 && k-i<=len2; i++) {
+        for(int i=0; i<=len1 && k-i<=len2 && k-i>=0; i++) {
 			int[] maxSubArray1 = getSubArray(nums1, i);
 			int[] maxSubArray2 = getSubArray(nums2, k-i);
 			int[] maxSubArray = merge(maxSubArray1, maxSubArray2);
@@ -30,6 +30,18 @@ public class CreateMaximumNumber {
 		return max;
     }
 	
+	private static int[] getSubArray(int[] arr, int k) {
+		int[] ret = new int[k];
+		int len = arr.length;
+	
+		for(int i=0, j=-1; i<len; i++) {
+			while(j>=0 && arr[i]>ret[j] && len-i>k-j) j--;
+			if(j<k) ret[++j] = arr[i];
+		}
+		
+		return ret;
+	}
+	/*
     private static int[] getSubArray(int[] arr, int k) {
 		if(k==0) return new int[0];
 
@@ -57,7 +69,7 @@ public class CreateMaximumNumber {
 		
 		return ret;
     }
-
+	*/
     private static int[] merge(int[] arr1, int[] arr2) {
 		int len1 = arr1.length, len2 = arr2.length, idx1 = 0, idx2 = 0, idx3 = 0;
 		int[] ret = new int[len1 + len2];
