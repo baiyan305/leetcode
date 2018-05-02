@@ -10,6 +10,26 @@ public class LongestIncreasingSubsequence{
         System.out.println(lengthOfLIS(arr));
     }
 
+	public static int lengthOfLIS(int[] nums) {
+        int[] dp = new int[nums.length];
+		int len = 0;
+		for(int num : nums) {
+			int start = 0, end = len;
+			while(start<end) {
+				int mid = (end+start)/2;
+				if(num > dp[mid])
+					start = mid+1;
+				else
+					end = mid;	
+			}
+			
+			dp[start] = num;
+			if(start==len) ++len;;
+		}
+		
+		return len;
+    }
+	/*
     public static int lengthOfLIS(int[] nums) {
         if(nums == null || nums.length == 0) return 0;
 
@@ -27,5 +47,5 @@ public class LongestIncreasingSubsequence{
 
         return max;
     }
-
+	*/
 }
