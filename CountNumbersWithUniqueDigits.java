@@ -3,9 +3,28 @@
 public class CountNumbersWithUniqueDigits {
 
     public static void main(String[] args) {
-        System.out.println(countNumbersWithUniqueDigits(2)); 
+        System.out.println(countNumbersWithUniqueDigits(3)); 
     }
 
+	public static int countNumbersWithUniqueDigits(int n) {
+		if(n==0) return 1;
+		
+		int total = 10;
+		int uniqueNumber = 9;
+		int availableNumber = 9;
+		int i=1;
+		
+		while( i<n && availableNumber>0 ){
+			uniqueNumber = uniqueNumber * availableNumber;
+			total = total + uniqueNumber;
+			availableNumber--;
+			i++;
+		}
+		
+		return total;
+    }
+	
+	/*
     static boolean[] used = new boolean[10];
     static int total = 1;
     public static int countNumbersWithUniqueDigits(int n) {
@@ -33,5 +52,5 @@ public class CountNumbersWithUniqueDigits {
             }
         }
     }
-
+	*/
 }
