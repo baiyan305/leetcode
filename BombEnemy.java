@@ -12,6 +12,48 @@ public class BombEnemy {
         System.out.println(maxKilledEnemies(grid));
     }
 
+	public static int maxKilledEnemies(char[][] grid) {
+		if(grid == null || grid.length == 0 || grid[0].length == 0) return 0;
+		
+		int height = grid.length, width = grid[0].length, max = 0, rowCount = 0;
+		int[] colCount = new int[width];
+		
+		for(int h=0; h<height; h++) {
+			for(int w=0; w<width; w++) {
+				if(grid[h][w] == 'W') continue;
+				if(w==0 || grid[h][w-1] == 'W') rowCount = scanRow(grid, h, w);
+				if(h==0 || grid[h-1][w] == 'W') colCount[w] = scanCol(grid, h, w);
+				
+				if(grid[h][w] == '0') max = Math.max(max, rowCount+colCount[w]);
+			}
+		}
+		
+		return max;
+	}
+	
+	private static int scanRow(char[][] grid, int row, int col) {
+		int enemy = 0;
+		
+		while(col < grid[0].length && grid[row][col] != 'W') {
+			if(grid[row][col] == 'E')enemy++;
+			col++;
+		}
+		
+		return enemy;
+	}
+	
+	private static int scanCol(char[][] grid, int row, int col) {
+		int enemy = 0;
+		
+		while(row < grid.length && grid[row][col] != 'W') {
+			if(grid[row][col] == 'E')enemy++;
+			row++;
+		}
+		
+		return enemy;
+	}
+	
+	/*
     public static int maxKilledEnemies(char[][] grid) {
         if(grid == null || grid.length == 0) return 0;
 
@@ -72,5 +114,5 @@ public class BombEnemy {
 
         return max;
     }
-
+	*/
 }
