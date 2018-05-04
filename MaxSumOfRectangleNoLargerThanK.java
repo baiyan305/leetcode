@@ -3,7 +3,12 @@
 public class MaxSumOfRectangleNoLargerThanK {
 
     public static void main(String[] args) {
-
+		int[][] matrix = {
+			{2,2,-1}
+			//{0,-2,3}
+		};
+		
+		System.out.println(maxSumSubmatrix(matrix, 0));
     }
 
     public static int maxSumSubmatrix(int[][] matrix, int k) {       
@@ -15,13 +20,29 @@ public class MaxSumOfRectangleNoLargerThanK {
         for(int h=1; h<height; h++) sums[h][0] = matrix[h][0] + sums[h-1][0];
         for(int h=1; h<height; h++)
             for(int w=1; w<width; w++)
-                sums[h][w] = sums[h][w-1] + sums[h-1][w] - sums[h-1][w-1];
+                sums[h][w] = matrix[h][w] + sums[h][w-1] + sums[h-1][w] - sums[h-1][w-1];
         
-        for(int i=0; i<width; i++)
-            for(int j=0; j<height; j++)
-                for(int m=0; m<width; m++)
-                    for(int n=0; n<height; n++)
+		
+		for(int i=0; i<height; i++) {
+			for(int j=0; j<width; j++) {
+				System.out.print(sums[i][j]+" ");
+			}
+			System.out.println();
+		}
+		
+        for(int i=0; i<height; i++) {
+            for(int j=0; j<width; j++) {
+                for(int m=i; m<height; m++) {
+                    for(int n=j; n<width; n++) {
+						int area = area(sums, i,j,m,n);
+						System.out.println("["+i+","+j+"], ["+m+","+n+"] : "+area);
+						if(area<=k) max = Math.max(max, area);
+					}
+				}
+			}
+		}
                         
+		return max;
     }
 
     private static int area(int[][] area, int i, int j, int m, int n){
