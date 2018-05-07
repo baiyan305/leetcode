@@ -11,6 +11,25 @@ public class MaxSumOfRectangleNoLargerThanK {
 		System.out.println(maxSumSubmatrix(matrix, 0));
     }
 
+	public static int maxSumSubmatrix(int[][] matrix, int k) {
+		int height = matrix.length, width = matrix[0].length, max = Integer.MIN_VALUE;
+		
+		for(int left=0; left<=width; left++) {
+			int[] sum = new int[height];
+			for(int right=left; right<=width; right++) {
+				for(int h=0; h<height; h++) {
+					sum[i] += matrix[h][right];
+				}
+			}
+		}
+	}
+	
+	private static int binarySearch(int[] nums, int k) {
+		Arrays.sort(nums);
+		
+	}
+	
+	/*
     public static int maxSumSubmatrix(int[][] matrix, int k) {       
         int max = Integer.MIN_VALUE, height = matrix.length, width = matrix[0].length;
         int[][] sums = new int[height][width];
@@ -52,5 +71,5 @@ public class MaxSumOfRectangleNoLargerThanK {
 
         return area[m][n] - leftArea - aboveArea; 
     }
-
+	*/
 }
