@@ -47,5 +47,5 @@ public class SetMatrixZeros {
             for(int y=0; y<matrix.length; y++)
                 matrix[y][0] = 0;
     }
-    
+
 }
