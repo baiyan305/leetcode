@@ -3,7 +3,7 @@
 public class FindTheCelebrity {
 
     public static void main(String[] args) {
-        
+
     }
 
 
