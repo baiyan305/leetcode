@@ -8,43 +8,35 @@ import java.util.PriorityQueue;
 public class TaskScheduler {
 
     public static void main(String[] args) {
-        String str = "AAABBB";
-        //String str = "AAAAAABCDEFG";
+        //String str = "AAABBB";
+        String str = "AAAAAABCDEFG";
         //char[] tasks = {'A','C','C','C','E','E','E'};
-        System.out.println(leastInterval(str.toCharArray(), 0));
+        System.out.println(leastInterval(str.toCharArray(), 1));
     }
 
     public static int leastInterval(char[] tasks, int n) {
-        int leastInterval = 0;
-
-        int[] count = new int[26];
-        for(char task : tasks) count[task - 'A']++;
+        int[] counting = new int[26];
+        for(char task : tasks) counting[task - 'A']++;
 
         PriorityQueue<Integer> queue = new PriorityQueue<>(26, new Comparator<Integer>() {
             @Override
-            public int compare(Integer num1, Integer num2) {
-                return num2-num1;
+            public int compare(Integer int1, Integer int2) {
+                return int2 - int1;
             }
         });
+        for(int i : counting) if(i != 0) queue.add(i);
 
-        for(int num : count) if(num != 0) queue.add(num);
-
-        int capacity = n + 1;
+        int capacity = n+1, leastInterval = 0;
         while(!queue.isEmpty()) {
             List<Integer> list = new ArrayList<>();
-            for(int i=0; i<capacity; i++) {
-                if(!queue.isEmpty()) {
-                    list.add(queue.poll());
-                    leastInterval++;
-                }
-            }
+            for(int i=0; i<capacity; i++) if(!queue.isEmpty()) list.add(queue.poll());
 
-            int taskInSloth  = list.size();
-            for(int cnt : list) {
-                if(cnt-1 > 0) queue.add(cnt-1);
-            }
+            int interval = list.size();
+            for(int count : list) if(count -1 > 0) queue.add(count-1);
 
-            if(!queue.isEmpty()) leastInterval += capacity - taskInSloth;
+            interval += queue.isEmpty() ? 0 : capacity - interval;
+
+            leastInterval += interval;
         }
 
         return leastInterval;
