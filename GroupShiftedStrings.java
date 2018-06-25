@@ -16,16 +16,17 @@ public class GroupShiftedStrings {
         HashMap<String, List<String>> map = new HashMap<>();
 
         for(String str : strings) {
-            StringBuilder key = new StringBuilder();
-            for(int i=1; i<str.length(); i++) {
-                int diff = str.charAt(i) - str.charAt(i-1);
-                if(diff <0) diff += 26;
-                key.append(diff+'.');
+            int offset = 26 - (str.charAt(0) - 'a');
+            StringBuilder builder = new StringBuilder();
+            for(int i=0; i<str.length(); i++) {
+                int c = str.charAt(i) + offset;
+                if(c > 'z') c -= 26;
+                builder.append(c);
             }
 
-            String keystr = key.toString();
-            if(!map.containsKey(keystr)) map.put(keystr, new ArrayList<>());
-            map.get(keystr).add(str);
+            String key = builder.toString();
+            if(!map.containsKey(key)) map.put(key, new ArrayList<>());
+            map.get(key).add(str);
         }
 
         List<List<String>> lists = new ArrayList<>();
