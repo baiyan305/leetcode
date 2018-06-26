@@ -1,8 +1,16 @@
 // 336. Palindrome Pairs
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 public class PalindromePairs {
-	
-	public static void main(String[] args) {
+
+    public static void main(String[] args) {
+        String str = "abc";
+        System.out.println(str.substring(0,0));
+
         String[] words1 = {"bat", "tab", "cat"};
         System.out.println(palindromePairs(words1));
 
@@ -14,6 +22,7 @@ public class PalindromePairs {
 
         String[] words4 = {"ab", "ba"};
         System.out.println(palindromePairs(words4));
+
     }
 
     public static List<List<Integer>> palindromePairs(String[] words) {
@@ -22,25 +31,25 @@ public class PalindromePairs {
         HashMap<String, Integer> map = new HashMap<>();
         for(int i = 0; i < words.length; i++) map.put(words[i], i);
 
-        for(int i = 0; i < words.length; i++) {
+        for(int i=0; i<words.length; i++) {
             String word = words[i];
 
-            for(int right=0; right<=word.length(); right++) {
-                String leftStr = word.substring(0, right);
+            for(int divide=0; divide<word.length(); divide++) {
+                String leftStr = word.substring(0, divide), rightStr = word.substring(divide, word.length());
                 if(isPalindrome(leftStr)) {
-                    String reverseRightStr = reverse(word.substring(right, word.length()));
-                    if(map.containsKey(reverseRightStr) && map.get(reverseRightStr) != i) lists.add(Arrays.asList(map.get(reverseRightStr), i));
+                    String reverseRight = reverse(rightStr);
+                    if(map.containsKey(reverseRight) && map.get(reverseRight) != i) {
+                        lists.add(Arrays.asList(map.get(reverseRight), i));
+                    }
                 }
-            }
-
-            for(int left=word.length()-1; left>=0; left--) {
-                String rightStr = word.substring(left, word.length());
                 if(isPalindrome(rightStr)) {
-                    String reverseLeftStr = reverse(word.substring(0, left));
-                    if(map.containsKey(reverseLeftStr) && map.get(reverseLeftStr) != i) lists.add(Arrays.asList(i, map.get(reverseLeftStr)));
+                    String reverseLeft = reverse(leftStr);
+                    if(map.containsKey(reverseLeft) && map.get(reverseLeft) != i) {
+                        lists.add(Arrays.asList(i, map.get(reverseLeft)));
+                        if(leftStr.equals("")) lists.add(Arrays.asList(map.get(reverseLeft), i));
+                    }
                 }
             }
-
         }
 
         return lists;
