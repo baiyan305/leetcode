@@ -1,3 +1,5 @@
+// 336. Palindrome Pairs
+
 public class PalindromePairs {
 	
 	public static void main(String[] args) {
@@ -31,7 +33,7 @@ public class PalindromePairs {
                 }
             }
 
-            for(int left=word.length()-1; left>0; left--) {
+            for(int left=word.length()-1; left>=0; left--) {
                 String rightStr = word.substring(left, word.length());
                 if(isPalindrome(rightStr)) {
                     String reverseLeftStr = reverse(word.substring(0, left));
