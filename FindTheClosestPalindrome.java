@@ -5,9 +5,11 @@ import java.util.Arrays;
 public class FindTheClosestPalindrome {
     public void run() {
         System.out.println(nearestPalindromic("123"));
-        System.out.println(nearestPalindromic("1"));
-        System.out.println(nearestPalindromic("9"));
+        //System.out.println(nearestPalindromic("1"));
+        //System.out.println(nearestPalindromic("9"));
     }
+
+
 
     public String nearestPalindromic(String n) {
         if(n == null || n.length() == 0) return n;
