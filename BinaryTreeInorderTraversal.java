@@ -1,6 +1,6 @@
-// 144. Binary Tree Preorder Traversal
+// 94. Binary Tree Inorder Traversal
 
-public class BinaryTreePreorderTraversal {
+public class BinaryTreeInorderTraversal {
 	
 	public void run() {
         TreeNode node1 = new TreeNode(1);
