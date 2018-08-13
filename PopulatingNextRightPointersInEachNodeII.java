@@ -1,6 +1,6 @@
-// 116. Populating Next Right Pointers in Each Node
+// 117. Populating Next Right Pointers in Each Node II
 
-public class PopulatingNextRightPointersInEachNode {
+public class PopulatingNextRightPointersInEachNodeII {
 	public void run() {
         TreeLinkNode node1 = new TreeLinkNode(1);
         TreeLinkNode node2 = new TreeLinkNode(2);
@@ -23,14 +23,23 @@ public class PopulatingNextRightPointersInEachNode {
     }
 
     public void connect(TreeLinkNode root) {
-        while(root != null) {
-            TreeLinkNode node = root;
+        TreeLinkNode start = root;
+        while(start != null) {
+            TreeLinkNode node = start, prev = null;
+            start = null;
             while(node != null) {
-                if(node.left != null) node.left.next = node.right;
-                if(node.right != null && node.next != null) node.right.next = node.next.left;
+                if(node.left != null) {
+                    if(prev != null) prev.next = node.left;
+                    prev = node.left;
+                    if(start == null) start = node.left;
+                }
+                if(node.right != null) {
+                    if(prev != null) prev.next = node.right;
+                    prev = node.right;
+                    if(start == null) start = node.right;
+                }
                 node = node.next;
             }
-            root = root.left;
         }
     }
 	
