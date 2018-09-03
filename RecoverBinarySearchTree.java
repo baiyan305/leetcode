@@ -19,6 +19,49 @@ public class RecoverBinarySearchTree {
         System.out.println();
     }
 
+	/* Morris Traversal
+	public void recoverTree(TreeNode root) {
+        TreeNode first = null, second = null, prev = null;
+
+        // Morris traversal
+        while(root != null) {
+            if(root.left != null) {
+                TreeNode node = root.left;
+                while(node.right != null && node.right != root) node = node.right;
+
+                if(node.right != null) {
+                    if(prev != null && prev.val >= root.val) {
+                        if(first == null) first = prev;
+                        second = root;
+                    }
+                    prev = root;
+
+                    node.right = null;
+                    root = root.right;
+                } else {
+                    node.right = root;
+                    root = root.left;
+                }
+
+            } else {
+                if(prev != null && prev.val >= root.val) {
+                    if(first == null) first = prev;
+                    second = root;
+                }
+                prev = root;
+
+                root = root.right;
+            }
+        }
+
+        if(first != null && second != null) {
+            int tmp = first.val;
+            first.val = second.val;
+            second.val = tmp;
+        }
+    }
+	*/
+	
     public void recoverTree(TreeNode root) {
         TreeNode[] nodes = new TreeNode[3];
         inorder(root, nodes);
