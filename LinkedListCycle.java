@@ -1,15 +1,13 @@
 // 141. Linked List Cycle
 
-import yan.bai.Instance;
-
 public class LinkedListCycle {
 
     public void run() {
 
     }
 
-    public boolean hasCycle(Instance.ListNode head) {
-        Instance.ListNode slow = head, fast = head;
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head, fast = head;
 
         while(fast != null & fast.next != null) {
             fast = fast.next.next;
@@ -22,7 +20,7 @@ public class LinkedListCycle {
 
     public class ListNode {
         int val;
-        Instance.ListNode next;
+        ListNode next;
 
         ListNode(int x) {
             val = x;
