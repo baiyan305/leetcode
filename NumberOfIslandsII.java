@@ -1,3 +1,6 @@
+// Add 305. Number of Islands II
+// https://www.jianshu.com/p/34d6199f4683
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,7 +68,7 @@ public class NumberOfIslandsII {
                 roots[root1] = root2;
                 weight[root2] += weight[root1];
             }
-            
+
             island[0]--;
         }
     }
