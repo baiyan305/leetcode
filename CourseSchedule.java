@@ -1,5 +1,7 @@
 // 207. Course Schedule
 
+import java.util.*;
+
 public class CourseSchedule {
 	
 	public void run() {
@@ -14,11 +16,11 @@ public class CourseSchedule {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         int[] inDegree = new int[numCourses];
         HashMap<Integer, List<Integer>> map = new HashMap<>();
-        for(int[] pre : prerequisites) {
-            int course = pre[0], dependency = pre[1];
-            inDegree[dependency]++;
-            if(!map.containsKey(course)) map.put(course, new ArrayList<>());
-            map.get(course).add(dependency);
+        for(int[] arr : prerequisites) {
+            int course = arr[0], pre = arr[1];
+            inDegree[course]++;
+            if(!map.containsKey(pre)) map.put(pre, new ArrayList<>());
+            map.get(pre).add(course);
         }
 
         Queue<Integer> queue = new LinkedList<>();
@@ -31,9 +33,9 @@ public class CourseSchedule {
             int course = queue.poll();
             visited++;
             if(map.containsKey(course)) {
-                for(int dep : map.get(course)) {
-                    inDegree[dep]--;
-                    if(inDegree[dep] == 0) queue.offer(dep);
+                for(int next : map.get(course)) {
+                    inDegree[next]--;
+                    if(inDegree[next] == 0) queue.offer(next);
                 }
             }
         }
