@@ -28,6 +28,11 @@ public class LargestBSTSubtree {
         return longest[0];
     }
 
+    // 返回值是一个数组，包含3个数字
+    // 第一个数字表示这个子树是不是BST
+    //    如果不是BST, 值为-1，如果是BST, 值是子树的node数量
+    // 第二个数字是子树所有node的最大值
+    // 第三个数字是子树所有node的最小值
     private int[] recursion(TreeNode root, int[] longest) {
         if(root == null) return new int[]{0, 0, 0};
 
