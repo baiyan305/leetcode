@@ -1,4 +1,5 @@
 // 234. Palindrome Linked List
+// 将后半部分翻转
 
 public class PalindromeLinkedList {
 
