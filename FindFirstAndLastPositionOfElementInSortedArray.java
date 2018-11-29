@@ -11,24 +11,24 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
     public int[] searchRange(int[] nums, int target) {
         int[] res = new int[]{-1,-1};
 
-        int left = 0, right = nums.length - 1;
-        while(left < right) {
-            int mid = left + (right-left)/2;
-            if(nums[mid] > target) right = mid - 1;
-            else if(nums[mid] < target)left = mid + 1;
-            else right = mid;
+        int low = 0, high = nums.length-1;
+        while(low < high) {
+            int mid = low + (high-low)/2;
+            if(target > nums[mid]) low = mid+1;
+            else if(target == nums[mid]) high = mid;
+            else high = mid-1;
         }
-        if(nums[left] != target) return res;
-        res[0] = left;
+        if(nums[low] == target) res[0] = low;
+        else return res;
 
-        right = nums.length - 1;
-        while(left < right) {
-            int mid = 1 + left + (right-left)/2;
-            if(nums[mid] > target) right = mid - 1;
-            else if(nums[mid] < target)left = mid + 1;
-            else left = mid;
+        high = nums.length-1;
+        while(low < high) {
+            int mid = low + (high-low)/2 + 1;
+            if(target > nums[mid]) low = mid+1;
+            else if(target == nums[mid]) low = mid;
+            else high = mid-1;
         }
-        res[1] = right;
+        res[1] = high;
 
         return res;
     }
