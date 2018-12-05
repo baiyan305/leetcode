@@ -1,4 +1,4 @@
-//56. Merge Intervals
+// 56. Merge Intervals
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,33 +35,58 @@ public class MergeIntervals {
         System.out.println("123");
     }
 
-    public static List<Interval> merge(List<Interval> intervals) {
-        List<Interval> list = new ArrayList<>();
-        if(intervals == null || intervals.size() == 0) return list;
+    // 创建一个新的List
+    public List<Interval> merge(List<Interval> intervals) {
+        List<Interval> res = new LinkedList<>();
+        if(intervals == null || intervals.size() == 0) return res;
 
-        Comparator<Interval> comparator = new Comparator<Interval>() {
+        Collections.sort(intervals, new Comparator<Interval>(){
             @Override
-            public int compare(Interval o1, Interval o2) {
-                return o1.start - o2.start;
+            public int compare(Interval a, Interval b) {
+                return a.start - b.start;
             }
-        };
-        Collections.sort(intervals, comparator);
+        });
 
-        list.add(intervals.get(0));
+        res.add(intervals.get(0));
+        Interval last = intervals.get(0);
         for(int i=1; i<intervals.size(); i++) {
-            Interval last = list.get(list.size()-1);
-            Interval current = intervals.get(i);
+            Interval cur = intervals.get(i);
 
-            if(last.end < current.start) {
-                list.add(new Interval(current.start, current.end));
-            } else if(current.end > last.end) {
-                last.end = current.end;
+            if(last.end >= cur.start) {
+                last.end = Math.max(last.end, cur.end);
+            } else {
+                res.add(cur);
+                last = cur;
             }
         }
 
-        return list;
+        return res;
     }
 
+    /* 不创建新List, 在输入的List中直接merge
+    public List<Interval> merge(List<Interval> intervals) {
+        Collections.sort(intervals, new Comparator<Interval>(){
+            @Override
+            public int compare(Interval a, Interval b) {
+                return a.start - b.start;
+            }
+        });
+
+        Interval previous = null;
+        Iterator<Interval> iterator = intervals.iterator();
+        while(iterator.hasNext()) {
+            Interval cur = iterator.next();
+            if(previous == null || previous.end < cur.start) {
+                previous = cur;
+            } else {
+                iterator.remove();
+                previous.end = cur.end;
+            }
+        }
+
+        return intervals;
+    }
+    */
     public static class Interval {
         int start;
         int end;
