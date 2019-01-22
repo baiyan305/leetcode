@@ -19,23 +19,35 @@ public class FirstMissingPositive {
         System.out.println(firstMissingPositive(nums7));
     }
 
-    public static int firstMissingPositive(int[] nums) {
-        if(nums == null || nums.length == 0) return 1;
-
+	// 将数字移动到对应的位置上
+	// 将1挪到坐标0位上
+	// 将2挪到坐标1位上
+	// 将3挪到坐标2位上
+	// ...
+	//
+	// 有个问题是，不能重复交换，会死循环，比如：
+	// [1,2,3,4,2]
+	// 到最后的一个2时，不能再放到坐标1上了，会造成死循环
+    public int firstMissingPositive(int[] nums) {
         int len = nums.length;
-        for(int i=0; i<nums.length; i++) {
-            while(nums[i] <= len && nums[i] > 0 && nums[i]-1 != i && nums[i]-1 != nums[nums[i]-1]-1) {
-                int tmp =  nums[i];
-                nums[i] = nums[tmp-1];
-                nums[tmp-1] = tmp;
+        for(int i=0; i<len; i++) {
+            while(1<=nums[i] && nums[i]<=len-1 && nums[i]!=i+1 && nums[i]!=nums[nums[i]-1]) {
+                swap(nums, i, nums[i]-1);
             }
         }
 
-        for(int i=0; i<nums.length; i++) {
-            if(nums[i]-1 != i) return i+1;
+        for(int i=0; i<len; i++) {
+            if(i+1 != nums[i])
+                return i+1;
         }
 
         return len+1;
+    }
+
+    private void swap(int[] nums, int a, int b) {
+        int tmp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = tmp;
     }
 
 }
