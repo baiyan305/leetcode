@@ -14,12 +14,18 @@ public class MajorityElement {
     public int majorityElement(int[] nums) {
         int candidate = 0, count = 0;
         for(int i=0; i<nums.length; i++) {
-            if(count == 0) {
-                candidate = i;
-                count = 1;
-            } else if(nums[candidate] == nums[i]) {
+            // 当前值和candidate相同，count++
+            if(nums[i] == nums[candidate]){
                 count++;
-            } else {
+            }
+            // 否则如果当前值和candidate不同，之后有两种情况
+            // 先看如果count是否为0，直接更新candidate
+            else if(count == 0) {
+                candidate = i;
+                count++;
+            }
+            // 如果count不为，count--
+            else {
                 count--;
             }
         }
