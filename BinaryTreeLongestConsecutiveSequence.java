@@ -15,7 +15,9 @@ public class BinaryTreeLongestConsecutiveSequence {
 
         System.out.println(longestConsecutive(node1));
     }
-
+    
+    // 这题没啥好说的，就是题目意思表达不清楚
+    // 其实找的是最长的递增序列，从某个parent到node
     public int longestConsecutive(TreeNode root) {
         int[] longest = new int[1];
         recursion(root, longest);
